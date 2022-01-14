@@ -28,6 +28,9 @@ def hello_there(name=None):
 @app.route("/api/data")
 def get_data():
 
-    data = {"x": [random.random() for _ in range(10)], "y": [random.random() for _ in range(10)]}
+    data = {
+        "x": datetime.now(),
+        "y": round(random.random(), 3)
+    }
 
     return jsonify(data)
