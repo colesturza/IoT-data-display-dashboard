@@ -30,7 +30,7 @@ def get_data():
 
     data = {
         "x": datetime.now(),
-        "y": round(random.random(), 3)
+        "y": [round(random.random(), 3) for _ in range(3)]
     }
 
     return jsonify(data)

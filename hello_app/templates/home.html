@@ -18,19 +18,41 @@ Home
             </div>
         </div>
     </div>
+    <div class="btn-toolbar d-flex justify-content-center align-items-center" style="height: 100px">
+        <button id="resume" type="button" class="btn btn-success">Resume</button>
+        <button id="pause" type="button" class="btn btn-danger">Pause</button>
+    </div>
 </div>
 
 <script>
+
+    var timer = null;
+    var interval = 2000;
+
     const ctx = document.getElementById('myChart').getContext('2d');
     const labels = [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40];
     const data = {
         labels: labels,
         datasets: [{
-            label: 'My First Dataset',
+            label: 'Dataset 0',
             data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
             fill: false,
             backgroundColor: "rgb(75, 192, 192)",
             borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }, {
+            label: 'Dataset 1',
+            data: [65, 59, 80, 81, 56, 65, 59, 80, 81, 56, 55, 56, 55, 40],
+            fill: false,
+            backgroundColor: "rgb(100, 225, 100)",
+            borderColor: 'rgb(100, 225, 100)',
+            tension: 0.1
+        }, {
+            label: 'Dataset 2',
+            data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            backgroundColor: "rgb(153, 0, 153)",
+            borderColor: 'rgb(153, 0, 153)',
             tension: 0.1
         }]
     };
@@ -58,16 +80,31 @@ Home
             // });
 
             myChart.data.labels.push(result.x);
-            myChart.data.datasets[0].data.push(result.y);
+            for (let i = 0; i < myChart.data.datasets.length; i++) {
+                myChart.data.datasets[i].data.push(result.y[i]);
+            }
             myChart.update();
 
             myChart.data.labels.shift();
-            myChart.data.datasets[0].data.shift();
+            myChart.data.datasets.forEach((dataset) => {
+                dataset.data.shift();
+            });
             myChart.update();
 
         });
     }
-    setInterval(function () { updateChart() }, 1000);
+
+    $("#resume").click(function () {
+        if (timer !== null) return;
+        timer = setInterval(function () { updateChart() }, interval);;
+    });
+
+    $("#pause").click(function () {
+        clearInterval(timer);
+        timer = null
+    });
+
+    timer = setInterval(function () { updateChart() }, interval);
 
 </script>
 
