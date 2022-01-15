@@ -20,7 +20,8 @@ Home
     </div>
     <div class="row">
         <div class="col-12">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="justify-content: center; display: flex;">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"
+                style="justify-content: center; display: flex;">
                 <div class="btn-group me-2" role="group" aria-label="First group">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -46,17 +47,6 @@ Home
 
 <script>
 
-    const actions = [
-        {
-            name: 'pause on/off',
-            handler(chart) {
-                const realtimeOpts = chart.options.scales.x.realtime;
-                realtimeOpts.pause = !realtimeOpts.pause;
-                chart.update('none');
-            }
-        }
-    ];
-
     const data = {
         datasets: [
             {
@@ -77,12 +67,14 @@ Home
     };
 
     const onRefresh = chart => {
-        const now = Date.now();
-        chart.data.datasets.forEach(dataset => {
-            dataset.data.push({
-                x: now,
-                y: Math.random()
-            });
+        const dataAPI = "http://127.0.0.1:5000/api/data";
+        $.getJSON(dataAPI, function (result) {
+            for (let i = 0; i < chart.data.datasets.length; i++) {
+                chart.data.datasets[i].data.push({
+                    x: result.x,
+                    y: result.y[i]
+                });
+            }
         });
     };
 
@@ -155,87 +147,6 @@ Home
         myChart.options.scales.x.realtime.duration = 60000 * duraction;
         myChart.update('none');
     });
-
-
-    // var timer = null;
-    // var interval = 2000;
-
-    // const ctx = document.getElementById('myChart').getContext('2d');
-    // const labels = [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40];
-    // const data = {
-    //     labels: labels,
-    //     datasets: [{
-    //         label: 'Dataset 0',
-    //         data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-    //         fill: false,
-    //         backgroundColor: "rgb(75, 192, 192)",
-    //         borderColor: 'rgb(75, 192, 192)',
-    //         tension: 0.1
-    //     }, {
-    //         label: 'Dataset 1',
-    //         data: [65, 59, 80, 81, 56, 65, 59, 80, 81, 56, 55, 56, 55, 40],
-    //         fill: false,
-    //         backgroundColor: "rgb(100, 225, 100)",
-    //         borderColor: 'rgb(100, 225, 100)',
-    //         tension: 0.1
-    //     }, {
-    //         label: 'Dataset 2',
-    //         data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-    //         fill: false,
-    //         backgroundColor: "rgb(153, 0, 153)",
-    //         borderColor: 'rgb(153, 0, 153)',
-    //         tension: 0.1
-    //     }]
-    // };
-    // const config = {
-    //     type: 'line',
-    //     data: data,
-    // };
-    // const myChart = new Chart(ctx, config);
-
-    // const dataAPI = "http://127.0.0.1:5000/api/data";
-    // const updateChart = function () {
-
-    //     $.getJSON(dataAPI, function (result) {
-
-    //         // myChart.data.labels = result.x;
-
-    //         // myChart.data.datasets.pop();
-    //         // myChart.data.datasets.push({
-    //         //     label: 'My First Dataset',
-    //         //     data: result.y,
-    //         //     fill: false,
-    //         //     backgroundColor: "rgb(75, 192, 192)",
-    //         //     borderColor: 'rgb(75, 192, 192)',
-    //         //     tension: 0.1
-    //         // });
-
-    //         myChart.data.labels.push(result.x);
-    //         for (let i = 0; i < myChart.data.datasets.length; i++) {
-    //             myChart.data.datasets[i].data.push(result.y[i]);
-    //         }
-    //         myChart.update();
-
-    //         myChart.data.labels.shift();
-    //         myChart.data.datasets.forEach((dataset) => {
-    //             dataset.data.shift();
-    //         });
-    //         myChart.update();
-
-    //     });
-    // }
-
-    // $("#resume").click(function () {
-    //     if (timer !== null) return;
-    //     timer = setInterval(function () { updateChart() }, interval);;
-    // });
-
-    // $("#pause").click(function () {
-    //     clearInterval(timer);
-    //     timer = null
-    // });
-
-    // timer = setInterval(function () { updateChart() }, interval);
 
 </script>
 

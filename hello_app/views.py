@@ -29,8 +29,8 @@ def hello_there(name=None):
 def get_data():
 
     data = {
-        "x": datetime.now(),
-        "y": [round(random.random(), 3) for _ in range(3)]
+        "x": int(round(datetime.now().timestamp() * 1000)),
+        "y": [round(random.random(), 2) for _ in range(2)]
     }
 
     return jsonify(data)
