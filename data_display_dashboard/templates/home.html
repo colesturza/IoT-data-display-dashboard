@@ -47,35 +47,48 @@ Home
 
 <script>
 
-    const data = {
-        datasets: [
-            {
-                label: 'Dataset 1 (Linear Interpolation)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                borderColor: 'rgb(255, 99, 132)',
-                borderDash: [8, 4],
-                data: []
-            },
-            {
-                label: 'Dataset 2 (Cubic Interpolation)',
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgb(54, 162, 235)',
-                cubicInterpolationMode: 'monotone',
-                data: []
-            }
-        ]
+    var chartColors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(201, 203, 207)'
     };
 
-    const onRefresh = chart => {
+    function onRefresh(chart) {
+        var now = Date.now();
         const dataAPI = "http://127.0.0.1:5000/api/data";
         $.getJSON(dataAPI, function (result) {
-            for (let i = 0; i < chart.data.datasets.length; i++) {
-                chart.data.datasets[i].data.push({
+            chart.data.datasets.forEach(function (dataset, i) {
+                dataset.data.push({
                     x: result.x,
                     y: result.y[i]
                 });
-            }
+            });
         });
+    }
+
+    var color = Chart.helpers.color;
+
+    const data = {
+        datasets: [{
+            label: 'Dataset 1 (linear interpolation)',
+            backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
+            borderColor: chartColors.red,
+            fill: false,
+            lineTension: 0,
+            borderDash: [8, 4],
+            data: []
+        }, {
+            label: 'Dataset 2 (cubic interpolation)',
+            backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+            borderColor: chartColors.blue,
+            fill: false,
+            cubicInterpolationMode: 'monotone',
+            data: []
+        }]
     };
 
     const config = {
@@ -89,9 +102,8 @@ Home
                         duration: 60000 * 15,  // 15 mins
                         ttl: 60000 * 15,
                         refresh: 1000,
-                        delay: 2000,
-                        onRefresh: onRefresh,
-                        pause: false
+                        delay: 4000,
+                        onRefresh: onRefresh
                     }
                 },
                 y: {
@@ -121,6 +133,7 @@ Home
                     },
                     limits: {
                         x: {
+                            minDelay: 4000,
                             minDuration: 60000,
                             maxDuration: 60000 * 15  // 15 mins
                         }
@@ -130,16 +143,18 @@ Home
         }
     };
 
-    const myChart = new Chart(
-        document.getElementById('myChart'),
-        config
-    );
+    window.onload = function () {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        window.myChart = new Chart(ctx, config);
+    };
 
+    // pauses/unpauses the chart
     const handlePauseOnOff = function () {
         myChart.options.scales.x.realtime.pause = !myChart.options.scales.x.realtime.pause;
         myChart.update('none');
     };
 
+    // Sets the duration for the chart using options from the dropdown menu
     $('#duration-options li').on('click', function (e) {
         e.preventDefault();
         var text = $(this).text();
