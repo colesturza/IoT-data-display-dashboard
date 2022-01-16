@@ -58,7 +58,7 @@ Home
     };
 
     function onRefresh(chart) {
-        const dataAPI = "http://127.0.0.1:5000/api/data";
+        const dataAPI = `${window.origin}/api/data`;
         $.getJSON(dataAPI, function (result) {
             chart.data.datasets.forEach(function (dataset, i) {
                 dataset.data.push({
