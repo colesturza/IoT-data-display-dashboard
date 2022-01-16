@@ -3,4 +3,4 @@ RUN mkdir /app
 WORKDIR /app/
 ADD . /app/
 RUN pip install -r requirements.txt
-CMD ["python", "/app/webapp.py"]
+CMD ["python", "/app/app.py"]

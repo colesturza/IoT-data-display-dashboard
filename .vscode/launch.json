@@ -10,7 +10,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "data_display_dashboard.webapp.py",
+                "FLASK_APP": "services/iot_data_dashboard/app.py",
                 "FLASK_ENV": "development"
             },
             "args": [

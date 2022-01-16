@@ -1,25 +1,26 @@
 from datetime import datetime
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, Blueprint
 import random
-from . import app
+
+main = Blueprint('main', __name__)
 
 
-@app.route("/")
+@main.route("/")
 def home():
     return render_template("home.html")
 
 
-@app.route("/about/")
+@main.route("/about/")
 def about():
     return render_template("about.html")
 
 
-@app.route("/contact/")
+@main.route("/contact/")
 def contact():
     return render_template("contact.html")
 
 
-@app.route("/api/data")
+@main.route("/api/data")
 def get_data():
 
     data = {
@@ -30,3 +31,5 @@ def get_data():
     }
 
     return jsonify(data)
+
+
