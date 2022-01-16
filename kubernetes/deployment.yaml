@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: flask-iot-data-display-dashboard
-          image: docker.io/colesturza/flask-iot-data-display-dashboard
+          image: docker.io/colesturza/flask-iot-data-display-dashboard:v1.0.0-alpha
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
