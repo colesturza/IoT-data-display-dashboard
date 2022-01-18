@@ -1,11 +1,11 @@
-set FLASK_APP=dashboard/app.py
-set FLASK_ENV=development
+export FLASK_APP=dashboard/app.py
+export FLASK_ENV=development
 
-set SECRET_KEY=dev
+export SECRET_KEY=dev
 
-set MONGO_USERNAME=dev
-set MONGO_PASSWORD=dev
-set MONGO_HOSTNAME=0.0.0.0
-set MONGO_DATABASE=dev
+export MONGO_USERNAME=dev
+export MONGO_PASSWORD=dev
+export MONGO_HOSTNAME=0.0.0.0
+export MONGO_DATABASE=dev
 
 flask run
