@@ -1,8 +1,9 @@
 from datetime import datetime
 from flask import Flask, render_template, jsonify, Blueprint
+
 import random
 
-main = Blueprint('main', __name__)
+main = Blueprint("main", __name__)
 
 
 @main.route("/")
@@ -24,12 +25,11 @@ def contact():
 def get_data():
 
     data = {
-        "x":
-        int(round(datetime.now().timestamp() * 1000)),
-        "y": [(1.0 if random.random() > 0.5 else -1.0) *
-              round(random.random() * 100) for _ in range(2)]
+        "x": int(round(datetime.now().timestamp() * 1000)),
+        "y": [
+            (1.0 if random.random() > 0.5 else -1.0) * round(random.random() * 100)
+            for _ in range(2)
+        ],
     }
 
     return jsonify(data)
-
-

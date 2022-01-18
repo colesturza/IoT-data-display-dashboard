@@ -2,6 +2,23 @@
 
 A simple flask app that receives MQTT messages from an IoT device and displays the data on a dashboard. The data is stored in a MongoDB database. Chart.js is used to display the data. The Chart.js zoom and streaming plugins are used to make viewing the data easier. The app is meant to be deployed using Kubernetes and Docker. A DockerFile is provided in the app's directory.
 
+## Development
+
+First create and activate your virtualenv - with the `venv` package on OSX or Linux, this will be:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+With your virtualenv active, install the project locally:
+
+```bash
+pip install ./services/dashboard/requirements.txt
+```
+
+You will also need Docker and Docker Compose. More instructions are provided in the README under services.
+
 ## How to deploy with Minikube
 
 ### Prereqs

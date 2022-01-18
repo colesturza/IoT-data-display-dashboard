@@ -10,8 +10,13 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "services/iot_data_dashboard/app.py",
-                "FLASK_ENV": "development"
+                "FLASK_APP": "services/dashboard/app.py",
+                "FLASK_ENV": "development",
+                "MONGO_USERNAME": "dev",
+                "MONGO_PASSWORD": "dev",
+                "MONGO_HOSTNAME": "0.0.0.0",
+                "MONGO_DATABASE": "dev",
+                "SECRET_KEY": "dev"
             },
             "args": [
                 "run",
