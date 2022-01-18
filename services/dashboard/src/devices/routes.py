@@ -28,21 +28,21 @@ def new_device():
     if form.validate_on_submit():
 
         raw_device = {
-            "name": form.name.data, 
+            "name": form.name.data,
             "make": form.make.data,
-            "model": form.model.data
+            "model": form.model.data,
         }
         raw_device["date_added"] = datetime.utcnow()
         raw_device["date_updated"] = raw_device["date_added"]
-        raw_device["slug"] = f"{raw_device['name']}-{raw_device['make']}-{raw_device['model']}".lower()
+        raw_device["slug"] = "{}-{}-{}".format(
+            raw_device["name"], raw_device["make"], raw_device["model"]
+        ).lower()
         device = Device(**raw_device)
         devices_collection.insert_one(device.to_bson())
         flash("Your device has been created!", "success")
         return redirect(f"/devices/{device.slug}")
 
-    return render_template(
-        "create_device.html", form=form
-    )
+    return render_template("create_device.html", form=form)
 
 
 @devices.route("/devices/<string:slug>", methods=["GET"])
