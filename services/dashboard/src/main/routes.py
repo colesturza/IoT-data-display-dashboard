@@ -1,7 +1,8 @@
-from datetime import datetime
-from flask import Flask, render_template, jsonify, Blueprint
-
 import random
+
+from datetime import datetime
+from flask import render_template, jsonify, Blueprint
+from src import pymongo
 
 main = Blueprint("main", __name__)
 

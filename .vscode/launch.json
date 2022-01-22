@@ -16,7 +16,8 @@
                 "MONGO_PASSWORD": "dev",
                 "MONGO_HOSTNAME": "0.0.0.0",
                 "MONGO_DATABASE": "dev",
-                "SECRET_KEY": "dev"
+                "MONGO_PORT": "27017",
+                "SECRET_KEY": "dev",
             },
             "args": [
                 "run",

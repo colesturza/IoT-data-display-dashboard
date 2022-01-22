@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+
+  mqtt:
+    image: toke/mosquitto
+    network_mode: bridge
+    container_name: mqtt
+    expose:
+      - 1883
+    ports:
+      - 1883:1883
+    restart: unless-stopped
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: dev
+      MONGO_INITDB_ROOT_USERNAME: dev
+      MONGO_INITDB_ROOT_PASSWORD: dev
+    ports:
+      - 27017:27017

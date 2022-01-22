@@ -1,9 +1,8 @@
-from flask import Flask, jsonify
+from flask import Flask
 from src.config import Config
 from flask_pymongo import PyMongo
 
 pymongo = PyMongo()
-
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -13,10 +12,8 @@ def create_app(config_class=Config):
 
     from .main.routes import main
     from .errors.handlers import errors
-    from .devices.routes import devices
 
     app.register_blueprint(main)
     app.register_blueprint(errors)
-    app.register_blueprint(devices)
 
     return app
