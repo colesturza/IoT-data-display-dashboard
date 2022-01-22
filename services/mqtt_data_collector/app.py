@@ -17,15 +17,6 @@ MQTT_BROKER_URL = "localhost"  # os.environ.get("MQTT_BROKER_URL")
 MQTT_BROKER_PORT = 1883  # int(os.environ.get("MQTT_BROKER_PORT"))
 # MQTT_USERNAME = os.environ.get("MQTT_USERNAME")
 # MQTT_PASSWORD = os.environ.get("MQTT_PASSWORD")
-MQTT_REFRESH_TIME = os.environ.get("MQTT_REFRESH_TIME")  # refresh time in seconds
-MQTT_KEEPALIVE = 60
-# MQTT_TLS_ENABLED = True
-# MQTT_TLS_CA_CERTS = None
-# MQTT_TLS_CERTFILE = None
-# MQTT_TLS_KEYFILE = None
-# MQTT_TLS_CERT_REQS = ssl.CERT_REQUIRED
-# MQTT_TLS_VERSION = ssl.PROTOCOL_TLSv1_2
-# MQTT_TLS_CIPHERS = None
 
 
 schema = {
