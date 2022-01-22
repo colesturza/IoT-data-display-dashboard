@@ -7,4 +7,4 @@ class Config:
     MONGO_HOSTNAME = os.environ.get("MONGO_HOSTNAME")
     MONGO_PORT = int(os.environ.get("MONGO_PORT"))
     MONGO_DATABASE = os.environ.get("MONGODB_DATABASE")
-    MONGO_URI = f"mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOSTNAME}:{MONGO_PORT}"
+    MONGO_URI = f"mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOSTNAME}:{MONGO_PORT}/{MONGO_DATABASE}?authSource=admin"

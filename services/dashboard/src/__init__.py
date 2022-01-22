@@ -2,13 +2,15 @@ from flask import Flask
 from src.config import Config
 from flask_pymongo import PyMongo
 
-pymongo = PyMongo()
+mongo = PyMongo()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    pymongo.init_app(app)
+    app.config["MONGO_URI"] = "mongodb://dev:dev@localhost:27017/dev?authSource=admin"
+
+    mongo.init_app(app)
 
     from .main.routes import main
     from .errors.handlers import errors

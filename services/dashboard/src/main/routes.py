@@ -1,8 +1,9 @@
 import random
 
 from datetime import datetime
+from datetime import timedelta, timezone
 from flask import render_template, jsonify, Blueprint
-from src import pymongo
+from src import mongo
 
 main = Blueprint("main", __name__)
 
@@ -25,12 +26,15 @@ def contact():
 @main.route("/api/data")
 def get_data():
 
+    data = mongo.db.telemetry.find(
+        {"timestamp": {"$gt": datetime.utcnow() - timedelta(seconds=2)}}
+    )
+
+    raw_data = list(data)
+
     data = {
-        "x": int(round(datetime.now().timestamp() * 1000)),
-        "y": [
-            (1.0 if random.random() > 0.5 else -1.0) * round(random.random() * 100)
-            for _ in range(2)
-        ],
+        "x": str(raw_data[0]["timestamp"].replace(tzinfo=timezone.utc).isoformat()),
+        "y": [raw_data[0]["value"]],
     }
 
     return jsonify(data)
